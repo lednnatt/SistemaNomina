@@ -1,0 +1,149 @@
+﻿@model List<SistemaNomina.Models.Departments>
+
+    @{
+    ViewData["Title"] = "Departamentos";
+    }
+
+    <div class="container-fluid mt-4">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <h2>Gestión de Departamentos</h2>
+            </div>
+            <div class="col-md-6 text-end">
+                <button type="button" class="btn btn-primary" id="btnCreateDept">
+                    <i class="bi bi-plus-circle"></i> Crear Departamento
+                </button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Código</th>
+                            <th>Nombre</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Count > 0)
+                    {
+                        @foreach (var dept in Model)
+                        {
+                        <tr>
+                            <td>@dept.DeptNo</td>
+                            <td>@dept.DeptName</td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-warning"
+                                        onclick="editDepartment(@dept.DeptNo)">
+                                    <i class="bi bi-pencil"></i> Editar
+                                </button>
+                                <button type="button" class="btn btn-sm btn-danger"
+                                        onclick="deleteDepartment(@dept.DeptNo)">
+                                    <i class="bi bi-trash"></i> Eliminar
+                                </button>
+                            </td>
+                        </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="3" class="text-center">No hay departamentos registrados.</td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="departmentModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle">Crear Departamento</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    <!-- Formulario será cargado aquí -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @section Scripts {
+        <script>
+    const modal = new bootstrap.Modal(document.getElementById('departmentModal'), {});
+
+    document.getElementById('btnCreateDept').addEventListener('click', function() {
+        document.getElementById('modalTitle').textContent = 'Crear Departamento';
+        loadFormCreate();
+    });
+
+    function loadFormCreate() {
+        fetch('@Url.Action("Create", "Departments")')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('modalBody').innerHTML = html;
+                modal.show();
+            });
+    }
+
+    function editDepartment(id) {
+        document.getElementById('modalTitle').textContent = 'Editar Departamento';
+        fetch(`@Url.Action("Edit", "Departments")/${id}`)
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('modalBody').innerHTML = html;
+                modal.show();
+            });
+    }
+
+    function saveDepartment() {
+        const form = document.getElementById('deptForm');
+        const formData = new FormData(form);
+
+        const url = form.action;
+        const method = form.method;
+
+        fetch(url, {
+            method: method,
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
+                modal.hide();
+                location.reload();
+            } else {
+                alert('Error: ' + data.message);
+            }
+        })
+        .catch(error => alert('Error: ' + error));
+    }
+
+    function deleteDepartment(id) {
+        if (confirm('¿Está seguro de que desea eliminar este departamento?')) {
+            fetch(`@Url.Action("Delete", "Departments")/${id}`, {
+                method: 'POST',
+                headers: {
+                    'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]')?.value || ''
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    location.reload();
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            });
+        }
+    }
+        </script>
+    }

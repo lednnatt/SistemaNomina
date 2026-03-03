@@ -1,0 +1,25 @@
+﻿@model SistemaNomina.Models.Departments
+
+<form id="deptForm" method="post" action="@(Model?.DeptNo > 0 ? Url.Action("Edit", new { id = Model.DeptNo }) : Url.Action("Create"))">
+    @Html.AntiForgeryToken()
+
+    @if (Model?.DeptNo > 0)
+    {
+    <input type="hidden" name="DeptNo" value="@Model.DeptNo" />
+    }
+    else
+    {
+    <input type="hidden" name="DeptNo" value="0" />
+    }
+
+    <div class="mb-3">
+        <label for="DeptName" class="form-label">Nombre del Departamento</label>
+        <input type="text" class="form-control" id="DeptName" name="DeptName"
+               value="@Model?.DeptName" required />
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" onclick="saveDepartment()">Guardar</button>
+    </div>
+</form>

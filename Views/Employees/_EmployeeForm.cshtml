@@ -1,0 +1,68 @@
+﻿@model SistemaNomina.Models.Employees
+
+<form id="empForm" method="post" action="@(Model?.EmpNo > 0 ? Url.Action("Edit", new { id = Model.EmpNo }) : Url.Action("Create"))">
+    @Html.AntiForgeryToken()
+
+    @if (Model?.EmpNo > 0)
+    {
+    <input type="hidden" name="EmpNo" value="@Model.EmpNo" />
+    }
+
+    <div class="mb-3">
+        <label for="Ci" class="form-label">Cedula</label>
+        <input type="text" class="form-control" id="Ci" name="Ci" value="@Model?.Ci" required />
+    </div>
+
+    <div class="mb-3">
+        <label for="FirstName" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="FirstName" name="FirstName" value="@Model?.FirstName" required />
+    </div>
+
+    <div class="mb-3">
+        <label for="LastName" class="form-label">Apellido</label>
+        <input type="text" class="form-control" id="LastName" name="LastName" value="@Model?.LastName" required />
+    </div>
+
+    <div class="mb-3">
+        <label for="BirthDate" class="form-label">Fecha de Nacimiento</label>
+        <input type="text" class="form-control" id="BirthDate" name="BirthDate" value="@Model?.BirthDate" placeholder="YYYY-MM-DD" />
+    </div>
+
+    <div class="mb-3">
+        <label for="Gender" class="form-label">Genero</label>
+        <select class="form-control" id="Gender" name="Gender" required>
+            <option value="">Seleccionar</option>
+            @if (Model?.Gender == 'M')
+        {
+            <option value="M" selected="selected">Masculino</option>
+        }
+        else
+        {
+            <option value="M">Masculino</option>
+        }
+            @if (Model?.Gender == 'F')
+        {
+            <option value="F" selected="selected">Femenino</option>
+        }
+        else
+        {
+            <option value="F">Femenino</option>
+        }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="HireDate" class="form-label">Fecha de Contratacion</label>
+        <input type="text" class="form-control" id="HireDate" name="HireDate" value="@Model?.HireDate" placeholder="YYYY-MM-DD" />
+    </div>
+
+    <div class="mb-3">
+        <label for="Correo" class="form-label">Correo</label>
+        <input type="email" class="form-control" id="Correo" name="Correo" value="@Model?.Correo" />
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" onclick="saveEmployee()">Guardar</button>
+    </div>
+</form>
