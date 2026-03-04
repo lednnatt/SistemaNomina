@@ -20,6 +20,9 @@ namespace SistemaNomina.Controllers
         // GET: DeptEmps
         public async Task<IActionResult> Index()
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("UsuarioLogueado")))
+                return RedirectToAction("Login", "Auth");
+
             var deptEmps = await _deptEmpService.GetAllAsync();
             return View(deptEmps);
         }

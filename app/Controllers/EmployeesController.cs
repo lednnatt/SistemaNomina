@@ -16,6 +16,9 @@ namespace SistemaNomina.Controllers
         // GET: Employees
         public async Task<IActionResult> Index()
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("UsuarioLogueado")))
+                return RedirectToAction("Login", "Auth");
+
             var employees = await _employeeService.GetAllAsync();
             return View(employees);
         }
