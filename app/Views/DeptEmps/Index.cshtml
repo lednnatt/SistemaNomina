@@ -1,0 +1,26 @@
+﻿@model List<SistemaNomina.Models.DeptEmp>
+
+    <div class="container-fluid mt-4">
+        <h2>Asignaciones a Departamentos</h2>
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Empleado</th>
+                    <th>Departamento</th>
+                    <th>Desde</th>
+                    <th>Hasta</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.EmpNo</td>
+                    <td>@item.DeptNo</td>
+                    <td>@item.FromDate</td>
+                    <td>@(string.IsNullOrEmpty(item.ToDate) ? "Vigente" : item.ToDate)</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>

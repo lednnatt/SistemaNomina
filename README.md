@@ -1,30 +1,49 @@
 # Sistema de Gestión de Nóminas
 
-## Descripción
-Aplicación ASP.NET Core MVC para gestión de empleados, departamentos y salarios con auditoría automática.
+## TÍTULO.
+Aplicación ASP.NET Core MVC para gestión de empleados, departamentos y asignaciones con autenticación básica.
 
-## Tecnologías
+## TECNOLOGÍAS.
 - **Backend**: ASP.NET Core 9.0 MVC
 - **BD**: SQL Server 2022
 - **ORM**: Entity Framework Core
 - **Frontend**: Bootstrap 5
 
-## Módulos Implementados
-✅ Autenticación y Login
-✅ Gestión de Empleados (CRUD)
-✅ Gestión de Departamentos (CRUD)
-✅ Gestión de Salarios con Auditoría
+## MÓDULOS IMPLEMENTADOS.
+1. **Autenticación** - Login básico (usuario: admin, contraseña: admin)
+2. **Empleados** - CRUD completo (crear, editar, ver, eliminar)
+3. **Departamentos** - CRUD completo
+4. **Asignaciones** - Asignar empleados a departamentos con fechas de vigencia
 
-## Instalación
+## CARACTERÍSTICAS. 
+- Patrón Repository → Service → Controller
+- Inyección de dependencias
+- Validaciones de negocio
+- Manejo de errores
+
+## INSTALACIÓN.
 1. Clonar repositorio
-2. Abrir en Visual Studio 2022
-3. `dotnet restore`
-4. `dotnet ef database update`
-5. `dotnet run`
+2. Abrir en Visual Studio 
+3. En la terminal, ejecutar:
+   -> dotnet restore
+   -> dotnet ef database update
+   -> dotnet run
 
-## Usuario de prueba
+## USUARIO DE PRUEBA, PARA ACCEDER AL SISTEMA.
 - Usuario: `admin`
 - Contraseña: `admin`
 
-## Autor
-Leonardo Anotnio Arévalo Cullabazo.
+## ESTRUCTURA DEL PROYECTO.
+```
+/app          - Código ASP.NET Core MVC
+/db           - Migraciones de EF Core
+```
+
+## FUNCIONALIDADES FUTURAS.
+- Gestión de Salarios con Auditoría
+- Reportes PDF/Excel
+- Protección de rutas por sesión
+- Roles y permisos
+
+## AUTOR
+Leonardo Antonio Arévalo - 2026

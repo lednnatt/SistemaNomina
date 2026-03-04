@@ -45,6 +45,7 @@
                             <td>
                                 <button type="button" class="btn btn-sm btn-warning" onclick="editEmployee(@emp.EmpNo)">Editar</button>
                                 <button type="button" class="btn btn-sm btn-danger" onclick="deleteEmployee(@emp.EmpNo)">Eliminar</button>
+                                <a href="@Url.Action("ByEmployee", "DeptEmps", new { empNo = emp.EmpNo })" class="btn btn-sm btn-info">Asignaciones</a>
                             </td>
                         </tr>
                         }

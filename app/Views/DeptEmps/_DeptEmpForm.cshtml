@@ -1,0 +1,22 @@
+﻿@Html.AntiForgeryToken()
+
+<div class="mb-3">
+    <label for="deptNo" class="form-label">Departamento</label>
+    <select class="form-control" id="deptNo" name="deptNo" required>
+        <option value="">Seleccionar</option>
+        @foreach (var dept in ViewBag.Departments)
+        {
+        <option value="@dept.DeptNo">@dept.DeptName</option>
+        }
+    </select>
+</div>
+
+<div class="mb-3">
+    <label for="fromDate" class="form-label">Fecha de Inicio</label>
+    <input type="text" class="form-control" id="fromDate" name="fromDate" placeholder="YYYY-MM-DD" required />
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+    <button type="button" class="btn btn-primary" onclick="saveAssignment()">Guardar</button>
+</div>
